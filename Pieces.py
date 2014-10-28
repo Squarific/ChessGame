@@ -18,7 +18,10 @@ class King (Piece):
 class Pawn:
 	def is_legal_move (self, pos1, pos2, board):
 		""" check if this piece can move in the specified direction """
-		if (pos2[1] - pos1[1] == self.allowed_direction() and pos2[0] == pos1[0]) or (board.get(pos2, False) and pos2[1] - pos1[1] == self.allowed_direction() and abs(pos2[0] - pos1[0])):
+		if (pos2[1] - pos1[1] == self.allowed_direction() and pos2[0] == pos1[0]): #TODO should be able to take on forward move?
+			return True
+		elif board.get(pos2, False) and pos2[1] - pos1[1] == self.allowed_direction() and abs(pos2[0] - pos1[0]) == 1:
+			#TODO remove piece
 			return True
 		return False
 
