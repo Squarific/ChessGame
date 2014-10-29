@@ -75,6 +75,9 @@ class Rook (Piece):
 
 
 class Bishop (Piece):
+	def __str__ (self):
+		return "B" + self.color
+
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
 		pos1 = self.get_real(pos1)
@@ -99,6 +102,9 @@ class Bishop (Piece):
 		return False
 
 class Knight (Piece):
+	def __str__ (self):
+		return "N" + self.color
+
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
 		pos1 = self.get_real(pos1)
