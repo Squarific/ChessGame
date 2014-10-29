@@ -19,7 +19,7 @@ class King (Piece):
 			return True
 		return False
 
-class Pawn:
+class Pawn (Piece):
 	def __str__ (self):
 		return "P" + self.color
 
@@ -40,7 +40,7 @@ class Pawn:
 			return True
 		return False
 
-class Rook:
+class Rook (Piece):
 	def __str__ (self):
 		return "R" + self.color
 
@@ -74,7 +74,7 @@ class Rook:
 		return False
 
 
-class Bishop:
+class Bishop (Piece):
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
 		pos1 = self.get_real(pos1)
@@ -98,7 +98,7 @@ class Bishop:
 
 		return False
 
-class Knight:
+class Knight (Piece):
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
 		pos1 = self.get_real(pos1)
