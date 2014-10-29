@@ -17,14 +17,15 @@ class Board:
 
 	def __str__ (self):
 		boardstring = "   ------------------\n"
-		boardstring += "  |                  |"
+		boardstring += "  |                  |\n"
 
 		for y in range(5, 0, -1):
 			boardstring += str(y) + " |  "
-			for x in "abcde":
-				boardstring += board.get((x, y), "  ") + "  "
+			for x in "abcd":
+				boardstring += str(self.board.get((x, y), "  ")) + "  "
 			boardstring += "|\n"
 			boardstring += "  |                  |\n"
 
-		boardstring = "   ------------------\n"
-		boardstring = "     a   b   c   d"
+		boardstring += "   ------------------\n"
+		boardstring += "     a   b   c   d"
+		return boardstring
