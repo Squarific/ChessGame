@@ -2,9 +2,16 @@ class Piece:
 	def __init__ (color):
 		self.color = color
 
+	def get_real (pos):
+		""" Change coords in the form (char, int) to (int, int) [required by specification]"""
+		return (ord(pos[0]) - 96, pos[1])
+
 class King (Piece):
 	def is_legal_move (self, pos1, pos2, board):
 		""" check if this piece can move in the specified direction """
+		pos1 = self.get_real(pos1)
+		pos2 = self.get_real(pos2)
+
 		if abs(pos2[1] - pos1[1]) <= 1 and abs(pos2[0] - pos1[0]) <= 1:
 			return True
 		return False
@@ -18,6 +25,9 @@ class Pawn:
 
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
+		pos1 = self.get_real(pos1)
+		pos2 = self.get_real(pos2)
+
 		if pos2[1] - pos1[1] == self.allowed_direction() and pos2[0] == pos1[0] and not board.get(pos2, False):
 			return True
 		elif board.get(pos2, False) and pos2[1] - pos1[1] == self.allowed_direction() and abs(pos2[0] - pos1[0]) == 1:
@@ -27,6 +37,9 @@ class Pawn:
 class Rook:
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
+		pos1 = self.get_real(pos1)
+		pos2 = self.get_real(pos2)
+
 		if pos2 == pos1:
 			return False
 
@@ -55,6 +68,9 @@ class Rook:
 class Bishop:
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
+		pos1 = self.get_real(pos1)
+		pos2 = self.get_real(pos2)
+
 		if not abs(pos2[1] - pos1[1]) == abs(pos2[0] - pos1[0]):
 			return False
 
@@ -76,6 +92,9 @@ class Bishop:
 class Knight:
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
+		pos1 = self.get_real(pos1)
+		pos2 = self.get_real(pos2)
+		
 		if abs(pos1[0] - pos2[0]) == 1 and abs(pos1[1] - pos1[1]) == 2:
 			return True
 		if abs(pos1[1] - pos2[1]) == 1 and abs(pos1[0] - pos1[0]) == 2:
