@@ -7,6 +7,9 @@ class Piece:
 		return (ord(pos[0]) - 96, pos[1])
 
 class King (Piece):
+	def __str__ (self):
+		return "K" + self.color
+
 	def is_legal_move (self, pos1, pos2, board):
 		""" check if this piece can move in the specified direction """
 		pos1 = self.get_real(pos1)
@@ -17,6 +20,9 @@ class King (Piece):
 		return False
 
 class Pawn:
+	def __str__ (self):
+		return "P" + self.color
+
 	def allowed_direction (self):
 		""" In what direction can the pawn of this color move """
 		if self.color = "w":
@@ -35,6 +41,9 @@ class Pawn:
 		return False
 
 class Rook:
+	def __str__ (self):
+		return "R" + self.color
+
 	def is_legal_move (self, pos1, pos2, board):
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
 		pos1 = self.get_real(pos1)
@@ -94,7 +103,7 @@ class Knight:
 		""" Check if this piece can move in the specified direction, ignore if there are other pieces unless it should not be able to take it or has to take it for it to be a valid move """
 		pos1 = self.get_real(pos1)
 		pos2 = self.get_real(pos2)
-		
+
 		if abs(pos1[0] - pos2[0]) == 1 and abs(pos1[1] - pos1[1]) == 2:
 			return True
 		if abs(pos1[1] - pos2[1]) == 1 and abs(pos1[0] - pos1[0]) == 2:
