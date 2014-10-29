@@ -1,8 +1,8 @@
 class Piece:
-	def __init__ (color):
+	def __init__ (self, color):
 		self.color = color
 
-	def get_real (pos):
+	def get_real (self, pos):
 		""" Change coords in the form (char, int) to (int, int) [required by specification]"""
 		return (ord(pos[0]) - 96, pos[1])
 
