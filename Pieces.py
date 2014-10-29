@@ -25,7 +25,7 @@ class Pawn:
 
 	def allowed_direction (self):
 		""" In what direction can the pawn of this color move """
-		if self.color = "w":
+		if self.color == "w":
 			return 1
 		return -1
 
