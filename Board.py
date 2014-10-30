@@ -12,7 +12,7 @@ class Board:
 			("b", 1): Pieces.Knight("w"),
 			("c", 1): Pieces.Bishop("w"),
 			("d", 1): Pieces.Rook("w"),
-			("a", 2): Pieces.Pawn("w")
+			("d", 2): Pieces.Pawn("w")
 		}
 
 	def __str__ (self):
@@ -42,15 +42,25 @@ class Board:
 		piece_from = self.board.get(frompos, False)
 		piece_to = self.board.get(topos, False)
 
-		if not piece_from or not piece_from.is_legal_move(frompos, topos, self.board):
+		if piece_from.color != color:
+			print("Please select a position containing a " + self.get_full_color(color) + " piece.")
 			return False
 
-		if piece_from.color !== color or (piece_to and piece_to.color == color):
+		if not piece_from or not piece_from.is_legal_move(frompos, topos, self.board) or (piece_to and piece_to.color == color):
+			print("Invalid move. Try again.")
 			return False
 
-		board[position2] = board.pop(position1)
+		self.board[topos] = self.board.pop(frompos)
+		return True
+
+	def get_full_color (self, color):
+		""" Get the full human readable lower case color from the first letter """
+		if color == "w":
+			return "white"
+		return "black"
 
 	def get_opposite_color (self, color):
+		""" Get the first letter of the opposite colors first letter """
 		if color == "w":
 			return "b"
 		return "w"
@@ -68,6 +78,6 @@ class Board:
 		king = self.get_king_position(color)
 		enemy = self.get_opposite_color(color)
 
-		for (position, piece) in self.board:
-			if piece.color == enemy and piece.is_legal_move(position, king[0]):
+		for (position, piece) in self.board.items():
+			if piece.color == enemy and piece.is_legal_move(position, king[0], self.board):
 				return True

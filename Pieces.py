@@ -14,10 +14,8 @@ class King (Piece):
 		""" check if this piece can move in the specified direction """
 		pos1 = self.get_real(pos1)
 		pos2 = self.get_real(pos2)
-
-		if abs(pos2[1] - pos1[1]) <= 1 and abs(pos2[0] - pos1[0]) <= 1:
-			return True
-		return False
+		
+		return abs(pos2[1] - pos1[1]) <= 1 and abs(pos2[0] - pos1[0]) <= 1
 
 class Pawn (Piece):
 	def __str__ (self):
