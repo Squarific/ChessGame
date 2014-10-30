@@ -58,6 +58,10 @@ class Board:
 			return False
 
 		self.board[topos] = self.board.pop(frompos)
+
+		if isinstance(piece_from, Pieces.Pawn) and (topos[1] == 1 or topos[1] == 5):
+			self.board[topos] = Pieces.Rook(piece_from.color)
+
 		return True
 
 	def get_full_color (self, color):
