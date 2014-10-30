@@ -29,3 +29,11 @@ class Board:
 		boardstring += "   ------------------\n"
 		boardstring += "     a   b   c   d"
 		return boardstring
+
+	def is_valid_position (self, position):
+		try:
+			return len(position) == 2 and position[0] in "abcd" and int(position[1]) > 0 and int(position[1]) < 6
+		except:
+			return False
+
+	def move_piece (self, color, position1, position2):
