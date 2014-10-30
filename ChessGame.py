@@ -11,6 +11,12 @@ class ChessGame:
 			return "White"
 		return "Black"
 
+	def last_played_color (self):
+		""" Return the color that did the last move """
+		if self.int_turn % 2 == 0:
+			return "Black"
+		return "White"
+
 	def ask_positions ():
 		""" Ask the user for a position from/to where pieces should be moved from/to and return a list of the two """
 
@@ -30,11 +36,12 @@ class ChessGame:
 		while not self.board.move_piece(first_letter_color, positions[0], position[1]):
 			positions = ask_positions()
 
-		self.int_turn += 1d
+		self.int_turn += 1
 
 
 	def start_game (self):
-		while not self.board.game_over():
+		""" As long as the game has not ended keep asking the players what to do """
+		while not self.board.game_over(self.last_played_color()[0].lower()):
 			self.next_turn()
 
 		#Game is over
