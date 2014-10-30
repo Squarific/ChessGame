@@ -55,19 +55,25 @@ class Rook (Piece):
 
 		if self.piece_in_the_way(pos1, pos2, board):
 			return False
+
 		return True
 
 	def piece_in_the_way (self, pos1, pos2, board):
 		""" See if there is a piece in the way but only check horizontally and vertically """
-		sign = abs(pos2[1] - pos1[1]) / pos2[1] - pos1[1]
-		for y in range(pos2[1], pos1[1], sign):
-			if board.get((pos2[0], y), False):
-				return True
+		
+		if pos2[1] - pos1[1] != 0:
+			sign = int(abs(pos2[1] - pos1[1]) / (pos2[1] - pos1[1]))
+			for y in range(pos2[1], pos1[1], -sign):
+				if board.get((pos2[0], y), False):
+					if y != pos2[1]:
+						return True
 
-		sign = abs(pos2[0] - pos1[0]) / pos2[0] - pos1[0]
-		for x in range(pos2[0], pos1[0], sign):
-			if board.get((x, pos2[1]), False):
-				return True
+		if pos2[0] - pos1[0] != 0:
+			sign = int(abs(pos2[0] - pos1[0]) / (pos2[0] - pos1[0]))
+			for x in range(pos2[0], pos1[0], -sign):
+				if board.get((x, pos2[1]), False):
+					if x != pos2[0]:
+						return True
 
 		return False
 
@@ -91,9 +97,9 @@ class Bishop (Piece):
 
 	def piece_in_the_way (self, pos1, pos2, board):
 		""" Is there a piece on the direct way """
-		sign = abs(pos2[1] - pos1[1]) / pos2[1] - pos1[1]
-		
-		for pos in range(pos2[1], pos1[1], sign):
+		sign = int(abs(pos2[1] - pos1[1]) / (pos2[1] - pos1[1]))
+
+		for pos in range(pos2[1], pos1[1], -sign):
 			if board.get((pos, pos), False):
 				return True
 
@@ -108,8 +114,9 @@ class Knight (Piece):
 		pos1 = self.get_real(pos1)
 		pos2 = self.get_real(pos2)
 
-		if abs(pos1[0] - pos2[0]) == 1 and abs(pos1[1] - pos1[1]) == 2:
+		if abs(pos1[0] - pos2[0]) == 1 and abs(pos1[1] - pos2[1]) == 2:
 			return True
-		if abs(pos1[1] - pos2[1]) == 1 and abs(pos1[0] - pos1[0]) == 2:
+		if abs(pos1[1] - pos2[1]) == 1 and abs(pos1[0] - pos2[0]) == 2:
 			return True
+
 		return False

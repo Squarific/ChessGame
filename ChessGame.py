@@ -8,19 +8,21 @@ class ChessGame:
 
 	def save_history (self):
 		""" Save the history to the file history.txt """
-		file_history = open("history.txt")
+		file_history = open("history.txt", "w")
 		string_history = ""
 		color = "White"
 
-		for move in history:
-			string_history += color + ":\t" + move[0] + " " + move[1]
+		for move in self.history:
+			string_history += color + ":\t" + move[0][0] + str(move[0][1]) + " " + move[1][0] + str(move[1][1])
 
 			if not move[2]:
 				string_history += " (invalid)"
-			else
+			else:
 				color = self.toggle_color(color)
 
 			string_history += "\n"
+
+		file_history.write(string_history)
 
 	def toggle_color (self, color):
 		""" Give back the opposite color """
@@ -59,11 +61,11 @@ class ChessGame:
 
 		while not self.board.move_piece(first_letter_color, positions[0], positions[1]):
 			positions.append(False)
-			history.append(positions)
+			self.history.append(positions)
 			positions = self.ask_positions()
 
 		positions.append(True)
-		history.append(positions)
+		self.history.append(positions)
 		self.int_turn += 1
 
 

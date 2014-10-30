@@ -8,10 +8,10 @@ class Board:
 			("c", 5): Pieces.Bishop("b"),
 			("d", 5): Pieces.Rook("b"),
 			("a", 4): Pieces.Pawn("b"),
-			("a", 1): Pieces.King("w"),
-			("b", 1): Pieces.Knight("w"),
-			("c", 1): Pieces.Bishop("w"),
-			("d", 1): Pieces.Rook("w"),
+			("d", 1): Pieces.King("w"),
+			("c", 1): Pieces.Knight("w"),
+			("b", 1): Pieces.Bishop("w"),
+			("a", 1): Pieces.Rook("w"),
 			("d", 2): Pieces.Pawn("w")
 		}
 
@@ -30,6 +30,13 @@ class Board:
 		boardstring += "     a   b   c   d"
 		return boardstring
 
+	def get (self, position, default):
+		return self.board.get(self.get_unreal(position), default)
+
+	def get_unreal (self, position):
+		""" Turn a coordinate from (int, int) to (char, char) """
+		return (chr(position[0] + 96), position[1])
+
 	def is_valid_position (self, position):
 		""" Is the given position a valid position of the form 'a1' where a is a character and 1 is an integer between 0 and 6 """
 		try:
@@ -42,11 +49,11 @@ class Board:
 		piece_from = self.board.get(frompos, False)
 		piece_to = self.board.get(topos, False)
 
-		if piece_from.color != color:
+		if not piece_from or piece_from.color != color:
 			print("Please select a position containing a " + self.get_full_color(color) + " piece.")
 			return False
 
-		if not piece_from or not piece_from.is_legal_move(frompos, topos, self.board) or (piece_to and piece_to.color == color):
+		if not piece_from or not piece_from.is_legal_move(frompos, topos, self) or (piece_to and piece_to.color == color):
 			print("Invalid move. Try again.")
 			return False
 
@@ -79,5 +86,6 @@ class Board:
 		enemy = self.get_opposite_color(color)
 
 		for (position, piece) in self.board.items():
-			if piece.color == enemy and piece.is_legal_move(position, king[0], self.board):
+			if piece.color == enemy and piece.is_legal_move(position, king[0], self):
+				print(position, piece)
 				return True
